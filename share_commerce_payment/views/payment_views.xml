@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_acquirer_form_inherited_share_commerce_payment" model="ir.ui.view">
+        <field name="name">Share Commerce Acquirer Form</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//group[@name="acquirer"]' position='inside'>
+                <group attrs="{'invisible': [('provider', '!=', 'share_commerce')]}">
+                    <field name="scp_merchantid"  password="True" string="Merchant ID" attrs="{'required':[ ('provider', '=', 'share_commerce'), ('state', '!=', 'disabled')]}"/>
+                    <field name="scp_secret_key"  password="True" string="Secret Key" attrs="{'required':[ ('provider', '=', 'share_commerce'), ('state', '!=', 'disabled')]}"/>
+                </group>
+            </xpath>
+            <field name="country_ids" position="after">
+                <field name="scp_production_url" password="True" string="Production URL" attrs="{'required':[ ('provider', '=', 'share_commerce'), ('state', '!=', 'disabled')]}"/>
+                <field name="scp_staging_url"  password="True" string="Staging URL" attrs="{'required':[ ('provider', '=', 'share_commerce'), ('state', '!=', 'disabled')]}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
