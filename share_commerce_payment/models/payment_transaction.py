@@ -84,7 +84,6 @@ class PaymentTransaction(models.Model):
         elif status_code in RESPONSE_CODE['Failed']: #CHECK ME
             self._set_transaction_cancel()
             return False
-            # self._set_transaction_error((_("Your payment was Failed (code %s). Please try again.", status_code)))
         elif status_code in RESPONSE_CODE['Application Error']:
             self._set_transaction_error((_("An Application Error occurred during processing of your payment (code %s). Please try again.", status_code)))
             return False
