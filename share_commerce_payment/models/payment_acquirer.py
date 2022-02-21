@@ -104,27 +104,26 @@ class PaymentAcquirer(models.Model):
 
 
     def share_commerce_form_generate_values(self, values):
-    
         # Make ordered dict to avoid jumbling
         rendering_values = OrderedDict()
         return_url = urls.url_join(self.get_base_url(), ShareCommerceController._return_url)
 
         rendering_values['MerchantID'] = self.scp_merchantid
-        rendering_values['CurrencyCode'] = 'MYR' #IMP ME LATER,
+        rendering_values['CurrencyCode'] = values.get('currency').name if values.get('currency') else ''
         rendering_values['TxnAmount'] = values.get('amount')
         rendering_values['MerchantOrderNo'] =   values.get('reference')
         rendering_values['MerchantOrderDesc']= values.get('reference')
-        rendering_values['MerchantRef1'] = 'mref1'
-        rendering_values['MerchantRef2'] = 'mref2'
-        rendering_values['MerchantRef3'] = 'mref3'
-        rendering_values['CustReference'] =  values.get('partner_name', '') #IMP ME LATER
+        rendering_values['MerchantRef1'] = values.get('billing_partner_commercial_company_name','')
+        rendering_values['MerchantRef2'] = values.get('billing_partner_address','')
+        rendering_values['MerchantRef3'] = values.get('billing_partner_zip', '')
+        rendering_values['CustReference'] =  values.get('partner_name', '')
         rendering_values['CustName'] = values.get('partner_name', '')
         rendering_values['CustEmail'] =  values.get('partner_email', '')
         rendering_values['CustPhoneNo'] =  values.get('partner_phone', '')
         rendering_values['CustAddress1'] =  values.get('partner_address','')
         rendering_values['CustAddress2'] =  values.get('partner_zip','')
-        rendering_values['CustCountryCode'] = 'MY' #values.get('partner_country').code if values.get('partner_country') else ''
-        rendering_values['CustAddressState'] =   values.get('partner_state').code if values.get('partner_state') else ''
+        rendering_values['CustCountryCode'] = values.get('partner_country').code if values.get('partner_country') else ''
+        rendering_values['CustAddressState'] =   values.get('partner_state').name if values.get('partner_state') else ''
         rendering_values['CustAddressCity'] =  values.get('partner_city', '')
         rendering_values['RedirectUrl'] = return_url
         
@@ -139,5 +138,4 @@ class PaymentAcquirer(models.Model):
     def share_commerce_get_form_action_url(self):
         self.ensure_one()
         environment = 'prod' if self.state == 'enabled' else 'test'
-        print()
         return self._get_share_commerce_urls(environment)
