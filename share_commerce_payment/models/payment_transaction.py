@@ -120,7 +120,7 @@ class PaymentTransaction(models.Model):
         elif status_code in RESPONSE_CODE['Success']:
             self._set_done()
             return True
-        elif status_code in RESPONSE_CODE['Failed']: #CHECK ME
+        elif status_code in RESPONSE_CODE['Failed']:
             self._set_canceled()
             return False
         elif status_code in RESPONSE_CODE['Application Error']:
