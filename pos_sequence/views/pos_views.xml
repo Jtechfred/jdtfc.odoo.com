@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_pos_form_inherit_j_tech" model="ir.ui.view">
+        <field name="name">pos.order.form.inherit.j.tech</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="model">pos.order</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form//field[@name='name']" position="after">
+                <field name="receipt_sequence"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="pos_config_view_form_inherit_j_tech" model="ir.ui.view">
+        <field name="name">pos.config.form.view.inherit.j.tech</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="model">pos.config</field>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//div//div[@id='company']" position="after">
+                <div class="o_setting_right_pane">
+                    <label for="order_seq"/>
+                    <field name="order_seq" string="Next Order Sequence"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
