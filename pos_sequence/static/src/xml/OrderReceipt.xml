@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="J_tech_pos_sequence.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div//t[@t-if='receipt.cashier']" position="after">
+            <div class="receipt_sequence">
+                <div>--------------------------------</div>
+                <div>Sequence : <strong><t t-esc="receipt.receipt_sequence"/></strong></div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>
